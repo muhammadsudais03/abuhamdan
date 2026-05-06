@@ -48,11 +48,11 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {open && (
         <div className="md:hidden px-4 pb-4">
-          <a href="#" className="block py-2 hover:text-cyan-400">Home</a>
-          <a href="#" className="block py-2 hover:text-cyan-400">Flights</a>
-          <a href="#" className="block py-2 hover:text-cyan-400">Visa</a>
-          <a href="#" className="block py-2 hover:text-cyan-400">Packages</a>
-          <a href="#" className="block py-2 hover:text-cyan-400">Contact</a>
+          <Link to={"/"} className="block py-2 hover:text-cyan-400">Home</Link>
+          <Link to={"/"} className="block py-2 hover:text-cyan-400">Flights</Link>
+          <Link to={"/"} className="block py-2 hover:text-cyan-400">Visa</Link>
+          <Link to={"/"} className="block py-2 hover:text-cyan-400">Packages</Link>
+          <Link to={"/contact"} className="block py-2 hover:text-cyan-400">Contact</Link>
 
           <button className="w-full mt-3 bg-yellow-400 text-[#060C48] py-2 rounded-lg font-semibold">
             Book Now
