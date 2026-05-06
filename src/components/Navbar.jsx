@@ -23,6 +23,7 @@ export default function Navbar() {
             <Link to={""} className="hover:text-cyan-400 transition">Flights</Link>
             <Link to={""} className="hover:text-cyan-400 transition">Visa</Link>
             <Link to={""} className="hover:text-cyan-400 transition">Packages</Link>
+            <Link to={"/about"} className="hover:text-cyan-400 transition">About</Link>
             <Link to={"/contact"} className="hover:text-cyan-400 transition">Contact</Link>
           </div>
 
@@ -52,6 +53,7 @@ export default function Navbar() {
           <Link to={"/"} className="block py-2 hover:text-cyan-400">Flights</Link>
           <Link to={"/"} className="block py-2 hover:text-cyan-400">Visa</Link>
           <Link to={"/"} className="block py-2 hover:text-cyan-400">Packages</Link>
+          <Link to={"/about"} className="block py-2 hover:text-cyan-400">About</Link>
           <Link to={"/contact"} className="block py-2 hover:text-cyan-400">Contact</Link>
 
           <button className="w-full mt-3 bg-yellow-400 text-[#060C48] py-2 rounded-lg font-semibold">
