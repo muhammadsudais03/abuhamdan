@@ -21,7 +21,7 @@ export default function Navbar() {
           <div className="hidden md:flex space-x-6">
             <Link to={"/"} className="hover:text-cyan-400 transition">Home</Link>
             <Link to={""} className="hover:text-cyan-400 transition">Flights</Link>
-            <Link to={""} className="hover:text-cyan-400 transition">Visa</Link>
+            <Link to={"/visa"} className="hover:text-cyan-400 transition">Visa</Link>
             <Link to={"/packages"} className="hover:text-cyan-400 transition">Packages</Link>
             <Link to={"/about"} className="hover:text-cyan-400 transition">About</Link>
             <Link to={"/contact"} className="hover:text-cyan-400 transition">Contact</Link>
@@ -51,7 +51,7 @@ export default function Navbar() {
         <div className="md:hidden px-4 pb-4">
           <Link to={"/"} className="block py-2 hover:text-cyan-400">Home</Link>
           <Link to={"/"} className="block py-2 hover:text-cyan-400">Flights</Link>
-          <Link to={"/"} className="block py-2 hover:text-cyan-400">Visa</Link>
+          <Link to={"/visa"} className="block py-2 hover:text-cyan-400">Visa</Link>
           <Link to={"/packages"} className="block py-2 hover:text-cyan-400">Packages</Link>
           <Link to={"/about"} className="block py-2 hover:text-cyan-400">About</Link>
           <Link to={"/contact"} className="block py-2 hover:text-cyan-400">Contact</Link>
