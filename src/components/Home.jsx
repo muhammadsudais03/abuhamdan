@@ -5,6 +5,7 @@ import Visa from '../pages/Visa';
 import Packages from '../pages/Packages';
 import AboutUs from '../pages/AboutUs';
 import ContactUs from '../pages/ContactUs';
+import Footer from './Footer';
 
 const Home = () => {
   return ( 
@@ -15,6 +16,7 @@ const Home = () => {
     <Packages></Packages>
     <AboutUs></AboutUs>
     <ContactUs></ContactUs>
+    <Footer></Footer>
     </>
   )
 }

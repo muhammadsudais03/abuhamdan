@@ -8,6 +8,7 @@ import AboutUs from "./pages/AboutUs.jsx";
 import Packages from "./pages/Packages.jsx";
 import Visa from "./pages/Visa.jsx";
 import Flights from "./pages/Flights.jsx";
+import Footer from "./components/Footer.jsx";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/packages" element={<Packages />} />
         <Route path="/visa" element={<Visa />} />
         <Route path="/flights" element={<Flights />} />
+        <Route path="/footer" element={<Footer />} />
       </Routes>
     </>
   );
