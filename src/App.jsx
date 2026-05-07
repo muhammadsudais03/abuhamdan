@@ -1,4 +1,5 @@
 import "./App.css";
+import Home from "./components/Home.jsx";
 import Navbar from "./components/Navbar.jsx";
 import { Routes, Route } from "react-router-dom";
 import Hero from "./components/Hero.jsx";
@@ -13,7 +14,7 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Hero />} />
+        <Route path="/" element={<Home />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/packages" element={<Packages />} />

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "/logo.jpeg";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
@@ -10,12 +11,27 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
 
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <span className="text-2xl font-bold text-yellow-400">✈</span>
-            <span className="text-xl font-semibold">
-              Abu Hamdan Aviation
-            </span>
-          </div>
+          <div className="flex items-center gap-3">
+
+  <div className="w-14 h-14 rounded-full overflow-hidden border border-cyan-400/30 shadow-lg bg-white flex items-center justify-center">
+    <img
+      src={logo}
+      alt="Abu Hamdan Aviation Logo"
+      className="w-full h-full object-cover"
+    />
+  </div>
+
+  <div className="leading-tight">
+    <h1 className="text-lg font-bold text-white tracking-wide">
+      ABU HAMDAN
+    </h1>
+
+    <p className="text-xs text-cyan-300 tracking-[4px] uppercase">
+      Aviation
+    </p>
+  </div>
+
+</div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6">
