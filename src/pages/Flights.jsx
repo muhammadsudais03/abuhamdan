@@ -188,7 +188,7 @@ export default function Flights() {
           {/* Tabs */}
           <div className="flex gap-2 mb-6 flex-wrap">
             {[
-              { key: "oneway", label: "✈ One Way" },
+              { key: "oneway", label: " One Way" },
               { key: "return", label: "⇄ Return" },
               { key: "multicity", label: "⊕ Multi-City" },
             ].map((t) => (
