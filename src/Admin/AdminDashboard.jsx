@@ -1,42 +1,31 @@
-// src/admin/AdminDashboard.jsx
+// src/Admin/AdminDashboard.jsx
 import { Link } from "react-router-dom";
-
-const stats = [
-  { label: "Total Bookings",     value: "128",  change: "+12 this week",  icon: "🎫", color: "cyan",  to: "bookings" },
-  { label: "Visa Applications",  value: "54",   change: "+5 this week",   icon: "📋", color: "sky",   to: "visas" },
-  { label: "Active Packages",    value: "10",   change: "All live",       icon: "🧳", color: "cyan",  to: "packages" },
-  { label: "Flight Inquiries",   value: "76",   change: "+8 this week",   icon: "✈️",  color: "sky",   to: "flights" },
-  { label: "New Messages",       value: "23",   change: "5 unread",       icon: "💬", color: "cyan",  to: "messages" },
-  { label: "Team Members",       value: "4",    change: "All active",     icon: "👥", color: "sky",   to: "team" },
-];
-
-const recentBookings = [
-  { id: "#BK001", name: "Fatima Noor",      service: "Umrah Package",      status: "Confirmed", date: "May 06, 2026" },
-  { id: "#BK002", name: "Bilal Chaudhry",   service: "UK Tourist Visa",    status: "Pending",   date: "May 05, 2026" },
-  { id: "#BK003", name: "Zara Ahmed",       service: "ISB → DXB Flight",   status: "Confirmed", date: "May 05, 2026" },
-  { id: "#BK004", name: "Usman Tariq",      service: "Europe Explorer",    status: "Processing",date: "May 04, 2026" },
-  { id: "#BK005", name: "Sara Khan",        service: "Canada Visit Visa",  status: "Rejected",  date: "May 03, 2026" },
-];
-
-const recentMessages = [
-  { name: "Ahmed Ali",    subject: "Hajj Package Inquiry",     time: "2 hrs ago",  read: false },
-  { name: "Hina Raza",   subject: "UK Student Visa Help",      time: "5 hrs ago",  read: false },
-  { name: "Omar Sheikh", subject: "Group Flight Booking",      time: "Yesterday",  read: true  },
-  { name: "Nadia Butt",  subject: "Europe Tour Package",       time: "Yesterday",  read: true  },
-];
+import { useAdmin } from "./AdminContext";
 
 const statusStyle = {
   Confirmed:  "bg-green-400/10 text-green-400 border-green-400/20",
   Pending:    "bg-yellow-400/10 text-yellow-400 border-yellow-400/20",
   Processing: "bg-cyan-400/10 text-cyan-400 border-cyan-400/20",
   Rejected:   "bg-red-400/10 text-red-400 border-red-400/20",
+  Approved:   "bg-green-400/10 text-green-400 border-green-400/20",
 };
 
 export default function AdminDashboard() {
+  const { stats, bookings, messages } = useAdmin();
+
+  const statCards = [
+    { label: "Total Bookings",    value: stats.totalBookings,    sub: `${stats.confirmedBookings} confirmed`,  icon: "🎫", to: "bookings"  },
+    { label: "Visa Applications", value: stats.totalVisas,       sub: `${stats.pendingVisas} pending`,         icon: "📋", to: "visas"     },
+    { label: "Active Packages",   value: stats.activePackages,   sub: `${stats.totalPackages} total`,          icon: "🧳", to: "packages"  },
+    { label: "Active Flights",    value: stats.activeFlights,    sub: `${stats.totalFlights} total`,           icon: "✈️",  to: "flights"   },
+    { label: "Unread Messages",   value: stats.unreadMessages,   sub: `${stats.totalMessages} total`,          icon: "💬", to: "messages"  },
+    { label: "Team Members",      value: stats.totalTeam,        sub: "All active",                            icon: "👥", to: "team"      },
+  ];
+
   return (
     <div className="flex flex-col gap-6">
 
-      {/* Welcome */}
+      {/* ── WELCOME ── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h2 className="text-white font-bold text-2xl">Good morning, Admin 👋</h2>
@@ -47,9 +36,9 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* Stats Grid */}
+      {/* ── STATS GRID ── */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-        {stats.map((s) => (
+        {statCards.map((s) => (
           <Link
             key={s.label}
             to={`/admin/${s.to}`}
@@ -61,12 +50,12 @@ export default function AdminDashboard() {
             </div>
             <p className="text-2xl font-bold text-white">{s.value}</p>
             <p className="text-sky-400 text-xs leading-tight">{s.label}</p>
-            <p className="text-cyan-400 text-[10px]">{s.change}</p>
+            <p className="text-cyan-400 text-[10px]">{s.sub}</p>
           </Link>
         ))}
       </div>
 
-      {/* Two columns */}
+      {/* ── TWO COLUMNS ── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
         {/* Recent Bookings */}
@@ -87,9 +76,9 @@ export default function AdminDashboard() {
                 </tr>
               </thead>
               <tbody>
-                {recentBookings.map((b) => (
+                {bookings.slice(0, 5).map((b) => (
                   <tr key={b.id} className="border-b border-cyan-400/5 hover:bg-sky-800/20 transition">
-                    <td className="px-5 py-3 text-cyan-400 text-xs font-mono">{b.id}</td>
+                    <td className="px-5 py-3 text-cyan-400 text-xs font-mono">#{b.id}</td>
                     <td className="px-5 py-3 text-white text-xs">{b.name}</td>
                     <td className="px-5 py-3 text-sky-300 text-xs hidden sm:table-cell">{b.service}</td>
                     <td className="px-5 py-3">
@@ -112,14 +101,17 @@ export default function AdminDashboard() {
             <Link to="/admin/messages" className="text-cyan-400 text-xs hover:text-cyan-300 transition">View All →</Link>
           </div>
           <div className="flex flex-col divide-y divide-cyan-400/5">
-            {recentMessages.map((m, i) => (
-              <div key={i} className={`px-5 py-4 flex flex-col gap-1 hover:bg-sky-800/20 transition cursor-pointer ${!m.read ? "bg-cyan-400/5" : ""}`}>
+            {messages.slice(0, 4).map((m) => (
+              <div
+                key={m.id}
+                className={`px-5 py-4 flex flex-col gap-1 hover:bg-sky-800/20 transition cursor-pointer ${!m.read ? "bg-cyan-400/5" : ""}`}
+              >
                 <div className="flex items-center justify-between">
                   <p className={`text-sm font-medium ${m.read ? "text-sky-300" : "text-white"}`}>{m.name}</p>
                   {!m.read && <span className="w-2 h-2 rounded-full bg-cyan-400 shrink-0" />}
                 </div>
                 <p className="text-sky-400 text-xs">{m.subject}</p>
-                <p className="text-sky-600 text-[10px]">{m.time}</p>
+                <p className="text-sky-600 text-[10px]">{m.date}</p>
               </div>
             ))}
           </div>
@@ -127,17 +119,17 @@ export default function AdminDashboard() {
 
       </div>
 
-      {/* Quick Actions */}
+      {/* ── QUICK ACTIONS ── */}
       <div className="bg-sky-900/40 border border-cyan-400/10 rounded-2xl p-5">
         <h3 className="text-white font-semibold text-sm mb-4">Quick Actions</h3>
         <div className="flex flex-wrap gap-3">
           {[
-            { label: "Add Package",    to: "/admin/packages", icon: "🧳" },
-            { label: "Add Flight",     to: "/admin/flights",  icon: "✈️" },
-            { label: "Review Visas",   to: "/admin/visas",    icon: "📋" },
-            { label: "Read Messages",  to: "/admin/messages", icon: "💬" },
-            { label: "Edit Team",      to: "/admin/team",     icon: "👥" },
-            { label: "Edit Pages",     to: "/admin/pages",    icon: "🗂️" },
+            { label: "Add Package",   to: "/admin/packages", icon: "🧳" },
+            { label: "Add Flight",    to: "/admin/flights",  icon: "✈️" },
+            { label: "Review Visas",  to: "/admin/visas",    icon: "📋" },
+            { label: "Read Messages", to: "/admin/messages", icon: "💬" },
+            { label: "Edit Team",     to: "/admin/team",     icon: "👥" },
+            { label: "Edit Pages",    to: "/admin/pages",    icon: "🗂️" },
           ].map((a) => (
             <Link
               key={a.label}

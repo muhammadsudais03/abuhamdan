@@ -1,34 +1,36 @@
-// src/admin/AdminLayout.jsx
 import { useState, useEffect } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import logo from "/logo.jpeg";
+import { useAdmin } from "./AdminContext";
 
 const navItems = [
-  { to: "dashboard",  icon: "📊", label: "Dashboard" },
-  { to: "bookings",   icon: "🎫", label: "Bookings" },
-  { to: "flights",    icon: "✈️",  label: "Flights" },
-  { to: "visas",      icon: "📋", label: "Visa Applications" },
-  { to: "packages",   icon: "🧳", label: "Packages" },
-  { to: "messages",   icon: "💬", label: "Messages" },
-  { to: "team",       icon: "👥", label: "Team" },
-  { to: "pages",      icon: "🗂️",  label: "Page Content" },
+  { to: "dashboard", icon: "📊", label: "Dashboard" },
+  { to: "bookings",  icon: "🎫", label: "Bookings" },
+  { to: "flights",   icon: "✈️",  label: "Flights" },
+  { to: "visas",     icon: "📋", label: "Visa Applications" },
+  { to: "packages",  icon: "🧳", label: "Packages" },
+  { to: "messages",  icon: "💬", label: "Messages" },
+  { to: "team",      icon: "👥", label: "Team" },
+  { to: "pages",     icon: "🗂️",  label: "Page Content" },
 ];
 
 export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const { logout } = useAdmin();
 
-  // Auth guard
-  useEffect(() => {
-    if (localStorage.getItem("adminAuth") !== "true") {
-      navigate("/admin");
-    }
-  }, []);
+  // // ── Auth guard ──
+  // useEffect(() => {
+  //   if (localStorage.getItem("adminAuth") !== "true") {
+  //     navigate("/admin/login");
+  //   }
+  // }, []);
 
+  // ── Logout ──
   const handleLogout = () => {
-    localStorage.removeItem("adminAuth");
-    navigate("/admin");
+    logout();
+    navigate("/admin/login");
   };
 
   const active = location.pathname.split("/").pop();
@@ -63,7 +65,7 @@ export default function AdminLayout() {
           </div>
         </div>
 
-        {/* Nav */}
+        {/* Nav Links */}
         <nav className="flex-1 px-3 py-4 flex flex-col gap-1 overflow-y-auto">
           {navItems.map((item) => (
             <Link
@@ -82,7 +84,7 @@ export default function AdminLayout() {
           ))}
         </nav>
 
-        {/* Bottom */}
+        {/* Bottom Buttons */}
         <div className="px-3 py-4 border-t border-cyan-400/10 flex flex-col gap-2">
           <Link
             to="/"
